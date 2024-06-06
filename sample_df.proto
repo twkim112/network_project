@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message DataFrame {
+    message Index {
+        string datetime = 1; // ISO 포맷의 날짜와 시간 문자열
+    }
+
+    repeated Index index = 1;
+
+    message Column {
+        string name = 1;
+        repeated double values = 2;
+    }
+
+    repeated Column columns = 2;
+}
+
+service DataFrameService {
+    rpc GetDataFrame(Empty) returns (DataFrame);
+    rpc SendDataFrame(DataFrame) returns (Empty);
+}
+
+message Empty {}
